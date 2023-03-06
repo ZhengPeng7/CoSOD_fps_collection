@@ -2,11 +2,9 @@ import os
 import sys
 import math
 import time
-import tqdm
 import numpy as np
 from PIL import Image
 from numpy import random
-import matplotlib.pyplot as plt
 from multiprocessing import Process, Queue, Pool, Pipe, Manager
 
 

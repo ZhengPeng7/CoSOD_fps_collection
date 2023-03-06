@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-import fvcore.nn.weight_init as weight_init
+# import fvcore.nn.weight_init as weight_init
 
 from GCoNet_plus.config import Config
 
@@ -95,8 +95,8 @@ class CoAttLayer(nn.Module):
         self.conv_transform = nn.Conv2d(channel_in, channel_in, kernel_size=1, stride=1, padding=0) 
         self.fc_transform = nn.Linear(channel_in, channel_in)
 
-        for layer in [self.conv_output, self.conv_transform, self.fc_transform]:
-            weight_init.c2_msra_fill(layer)
+        # for layer in [self.conv_output, self.conv_transform, self.fc_transform]:
+        #     weight_init.c2_msra_fill(layer)
     
     def forward(self, x5):
         if self.training:
@@ -187,8 +187,8 @@ class GAM(nn.Module):
 
         self.conv6 = nn.Conv2d(channel_in, channel_in, kernel_size=1, stride=1, padding=0) 
 
-        for layer in [self.query_transform, self.key_transform, self.conv6]:
-            weight_init.c2_msra_fill(layer)
+        # for layer in [self.query_transform, self.key_transform, self.conv6]:
+        #     weight_init.c2_msra_fill(layer)
 
     def forward(self, x5):
         # x: B,C,H,W

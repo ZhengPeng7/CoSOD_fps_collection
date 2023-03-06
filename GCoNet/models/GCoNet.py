@@ -5,7 +5,8 @@ from GCoNet.models.vgg import VGG_Backbone
 import numpy as np
 import torch.optim as optim
 from torchvision.models import vgg16
-import fvcore.nn.weight_init as weight_init
+# import fvcore.nn.weight_init as weight_init
+
 
 class EnLayer(nn.Module):
     def __init__(self, in_channel=64):
@@ -81,8 +82,8 @@ class AllAttLayer(nn.Module):
 
         self.conv6 = Conv2d(input_channels, input_channels, kernel_size=1, stride=1, padding=0) 
 
-        for layer in [self.query_transform, self.key_transform, self.conv6]:
-            weight_init.c2_msra_fill(layer)
+        # for layer in [self.query_transform, self.key_transform, self.conv6]:
+        #     weight_init.c2_msra_fill(layer)
 
     def forward(self, x5):
         # x: B,C,H,W
@@ -123,8 +124,8 @@ class CoAttLayer(nn.Module):
         self.conv_transform = Conv2d(input_channels, input_channels, kernel_size=1, stride=1, padding=0) 
         self.fc_transform = nn.Linear(input_channels, input_channels)
 
-        for layer in [self.conv_output, self.conv_transform, self.fc_transform]:
-            weight_init.c2_msra_fill(layer)
+        # for layer in [self.conv_output, self.conv_transform, self.fc_transform]:
+        #     weight_init.c2_msra_fill(layer)
     
     def forward(self, x5):
         if self.training:
@@ -233,8 +234,8 @@ class GINet(nn.Module):
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
         self.classifier = nn.Linear(512, 291)
 
-        for layer in [self.classifier]:
-            weight_init.c2_msra_fill(layer)
+        # for layer in [self.classifier]:
+        #     weight_init.c2_msra_fill(layer)
 
     def set_mode(self, mode):
         self.mode = mode

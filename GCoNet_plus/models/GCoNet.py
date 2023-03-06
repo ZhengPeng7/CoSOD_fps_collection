@@ -4,7 +4,7 @@ from torch.functional import norm
 import torch.nn as nn
 import torch.nn.functional as F
 from torchvision.models import vgg16, vgg16_bn
-import fvcore.nn.weight_init as weight_init
+# import fvcore.nn.weight_init as weight_init
 from torchvision.models import resnet50
 
 from GCoNet_plus.models.modules import ResBlk, DSLayer, half_DSLayer, CoAttLayer, RefUnet, DBHead
@@ -96,8 +96,8 @@ class GCoNet_plus(nn.Module):
         if {'cls', 'cls_mask'} & set(self.config.loss):
             self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
             self.classifier = nn.Linear(lateral_channels_in[0], 291)       # DUTS_class has 291 classes
-            for layer in [self.classifier]:
-                weight_init.c2_msra_fill(layer)
+            # for layer in [self.classifier]:
+            #     weight_init.c2_msra_fill(layer)
         if self.config.split_mask:
             self.sgm = nn.Sigmoid()
         if self.config.refine:

@@ -1,14 +1,18 @@
-Benckmark for the inference speed test of CoSOD models.
+> Benckmark for the **inference speed** test of existing CoSOD models.
+
 This benchmark currently has models below (sorted by aplhabet):
-1. CADC     (ICCV 2021)
-2. CoADNet  (NeurIPS 2020)
-3. DCFM     (CVPR 2022)
-4. GCAGC    (CVPR 2020)
-5. GCoNet   (CVPR 2021)
-6. GCoNet+  (arXiv 2021)
-7. ICNet    (NeurIPS 2020)
-8. MCCL     (AAAI 2023)
+1. [CADC](https://github.com/nnizhang/CADC)     (ICCV 2021)
+2. [CoADNet](https://github.com/KeeganZQJ/CoSOD-CoADNet)  (NeurIPS 2020)
+3. [DCFM](https://github.com/siyueyu/DCFM)     (CVPR 2022)
+4. [GCAGC](https://github.com/ltp1995/GCAGC-CVPR2020)    (CVPR 2020)
+5. [GCoNet](https://github.com/fanq15/GCoNet)   (CVPR 2021)
+6. [GCoNet+](https://github.com/ZhengPeng7/GCoNet_plus)  (arXiv 2021)
+7. [ICNet](https://github.com/blanclist/ICNet)    (NeurIPS 2020)
+8. [MCCL](https://github.com/ZhengPeng7/MCCL)     (AAAI 2023)
 
 This repo tries to contain the codes only related to the inference to make it as simple as possible.
 For the consistent settings, we modify some parts of these codes like the fixed image size and channels in network, with no unnecessary influence on their performance.
-All of these codes are executed in Python=3.8, PyTorch==1.13.1 on one A100 GPU.
+
+All of these codes are executed in Python=3.8 on one A100 GPU, with libs below. We choose PyTorch 1.13.1 since it is the last version of PyTorch 1.X.
+
+`conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia -y && pip install -r req.txt`.

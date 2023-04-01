@@ -3,6 +3,7 @@
 ### Settings:
 
 + Batch size: 2
++ Image size: 256x256
 + GPU: A100
 
 ### Models:

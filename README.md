@@ -27,7 +27,7 @@ All of these codes are executed in Python=3.8 on an A100 GPU, with libs below. W
 `conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia -y && pip install -r req.txt`.
 
 I took much time to adapt all the methods here for the benchmark.
-If you find this repo useful, you can cite our [GCoNet+]([url](https://github.com/ZhengPeng7/GCoNet_plus)) paper, where the inference speed benchmark was included:
+If you find this repo useful, you can cite our [GCoNet+](https://github.com/ZhengPeng7/GCoNet_plus) paper, where the inference speed benchmark was included:
 ```
 @article{zheng2022gconet+,
   author={Zheng, Peng and Fu, Huazhu and Fan, Deng-Ping and Fan, Qi and Qin, Jie and Tai, Yu-Wing and Tang, Chi-Keung and Van Gool, Luc},

@@ -25,3 +25,17 @@ For the consistent settings, we modify some parts of these codes like the fixed 
 All of these codes are executed in Python=3.8 on an A100 GPU, with libs below. We choose PyTorch 1.13.1 to avoid the possible API differences in PyTorch 2.x in the future.
 
 `conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia -y && pip install -r req.txt`.
+
+If you find this repo useful, you can cite our GCoNet+ paper, where the inference speed benchmark is included:
+```
+@article{zheng2022gconet+,
+  author={Zheng, Peng and Fu, Huazhu and Fan, Deng-Ping and Fan, Qi and Qin, Jie and Tai, Yu-Wing and Tang, Chi-Keung and Van Gool, Luc},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={GCoNet+: A Stronger Group Collaborative Co-Salient Object Detector}, 
+  year={2023},
+  volume={45},
+  number={9},
+  pages={10929-10946},
+  doi={10.1109/TPAMI.2023.3264571}
+}
+```

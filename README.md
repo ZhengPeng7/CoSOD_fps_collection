@@ -24,7 +24,7 @@ For the consistent settings, we modify some parts of these codes like the fixed 
 
 All of these codes are executed in Python=3.8 on an A100 GPU, with libs below. We choose PyTorch 1.13.1 to avoid the possible API differences in PyTorch 2.x in the future.
 
-`conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia -y && pip install -r req.txt`.
+`conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia -y && pip install -r requirements.txt`.
 
 I took much time to adapt all the methods here for the benchmark.
 If you find this repo useful, you can cite our [GCoNet+](https://github.com/ZhengPeng7/GCoNet_plus) paper, where the inference speed benchmark was included:

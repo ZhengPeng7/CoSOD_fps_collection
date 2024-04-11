@@ -9,6 +9,9 @@ from torch.nn import Module, Sequential, Conv2d, ReLU,AdaptiveMaxPool2d, Adaptiv
 from torch.autograd import Variable
 from .default import _C as config
 from .cls_hrnet import get_cls_net
+
+BATCH_SIZE = 2
+
 model5 = get_cls_net(config)
 model5.cuda()
 ###############
@@ -93,7 +96,7 @@ def norm(x,dim):
     normed=x/torch.sqrt(squared_norm)
     return normed
 def spatial_optimize(fmap, group_size):
-    N, H, W = 2, 8, 8
+    N, H, W = BATCH_SIZE, 8, 8
     fmap_split = torch.split(fmap, group_size, dim=0)
     for i in range(len(fmap_split)):
         cur_fmap = fmap_split[i]

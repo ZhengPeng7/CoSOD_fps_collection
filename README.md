@@ -2,9 +2,9 @@
 
 ### Settings:
 
-+ Batch size: 2
 + Image size: 256x256
 + GPU: A100
++ Test on: random array data and [CoCA](https://drive.google.com/file/d/1mMKhDt9VMI8PgiOOY4gdTkXJChAX84M2/view?usp=drive_link)
 
 ### Models:
 

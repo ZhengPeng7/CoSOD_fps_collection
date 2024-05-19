@@ -10,7 +10,8 @@ from torch.autograd import Variable
 from .default import _C as config
 from .cls_hrnet import get_cls_net
 
-BATCH_SIZE = 2
+from test_fps import BATCH_SIZE
+
 
 model5 = get_cls_net(config)
 model5.cuda()
@@ -25,7 +26,7 @@ class Model(nn.Module):
         self.gc3_2 = GraphConvolution(96,  96)
         self.gc2_1 = GraphConvolution(96,  48)
         self.gc2_2 = GraphConvolution(48,  48)
-        self.group_size=5
+        self.group_size=BATCH_SIZE
         # decoder
         de_in_channels=int(48+96+192)
         de_layers = make_decoder_layers(decoder_archs['d16'], de_in_channels, batch_norm=True)
@@ -149,7 +150,7 @@ def row_normalize(mx):
     mx = torch.mm(r_mat_inv, mx)
     return mx
 def unsqz_fea(dim4_data):
-    split_data = torch.split(dim4_data, 5, dim=0)
+    split_data = torch.split(dim4_data, BATCH_SIZE, dim=0)
     for i in range(len(split_data)):
         if i == 0:
             dim5_data = split_data[i].unsqueeze(dim=0)

@@ -4,7 +4,6 @@ from time import time
 import random
 
 from PIL import Image
-import numpy as np
 import torch
 from torch.utils import data
 from torchvision import transforms
@@ -29,7 +28,7 @@ def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2)
                 if i > 0:
                     time_latest = time() - time_st
                     time_total += time_latest
-        return time_total / i / batch_size
+        time_per_frame = time_total / i / batch_size
     elif data == 'CoCA':
         # Currently, not support CoADNet and GCAGC, which have fixed group number in their network.
         image_dir = os.path.join('data', data, 'image')
@@ -37,7 +36,7 @@ def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2)
         time_total = 0.
         if model_name not in ['CoADNet', 'GCAGC']:
             num_images = len(glob(os.path.join(image_dir, '*', '*')))
-            test_loader = get_loader(image_dir, gt_dir, size, 1, max_num=float('inf'), istrain=False, shuffle=False, num_workers=2, pin=True)
+            test_loader = get_loader(image_dir, gt_dir, size, 1, max_num=float('inf'), istrain=False, shuffle=False, num_workers=2, pin=False)
             for _, batch in enumerate(test_loader):
                 inputs = batch[0].cuda().squeeze(0)
                 with torch.no_grad():
@@ -48,7 +47,7 @@ def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2)
         else:
             num_images = 0
             fixed_batch_size = 5
-            test_loader = get_loader(image_dir, gt_dir, size, 1, max_num=fixed_batch_size, istrain=False, shuffle=False, num_workers=2, pin=True)
+            test_loader = get_loader(image_dir, gt_dir, size, 1, max_num=fixed_batch_size, istrain=False, shuffle=False, num_workers=2, pin=False)
             for _, batch in enumerate(test_loader):
                 inputs = batch[0].cuda().squeeze(0)
                 with torch.no_grad():
@@ -57,8 +56,8 @@ def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2)
                     time_latest = time() - time_st
                 time_total += time_latest
                 num_images += fixed_batch_size
-            
-        return time_total / num_images
+        time_per_frame = time_total / num_images
+    return time_per_frame
 
 
 
@@ -83,7 +82,6 @@ class CoData(data.Dataset):
             transforms.Resize(self.data_size),
             transforms.ToTensor(),
         ])
-        self.load_all = False
 
     def __getitem__(self, item):
         filenames = os.listdir(self.image_dirs[item])
@@ -126,3 +124,4 @@ def get_loader(img_root, gt_root, img_size, batch_size, max_num = float('inf'), 
     data_loader = data.DataLoader(dataset=dataset, batch_size=batch_size, shuffle=shuffle, num_workers=num_workers,
                                   pin_memory=pin)
     return data_loader
+

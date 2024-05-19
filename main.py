@@ -19,7 +19,7 @@ def main():
     parser.add_argument('--data', default='CoCA', type=str, help=".")
     args = parser.parse_args()
 
-    repeat_times = 5
+    repeat_times = 1    # > 1 may lead to reading cache for faster running, which is not fair.
     for data in args.data.split(','):
         for model_name in args.models.split(','):
             model = eval(model_name+'()')

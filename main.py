@@ -19,17 +19,18 @@ def main():
     parser.add_argument('--data', default='CoCA', type=str, help=".")
     args = parser.parse_args()
 
-    repeat_times = 1    # > 1 may lead to reading cache for faster running, which is not fair.
+    repeat_time = 1    # > 1 may lead to reading cache for faster running, which is not fair.
     for data in args.data.split(','):
         for model_name in args.models.split(','):
             model = eval(model_name+'()')
             time_per_frame_lst = []
-            for _ in range(repeat_times):
+            for _ in range(repeat_time):
                 time_per_frame = test_fps(model, model_name, size=256, data=data, batch_size=BATCH_SIZE)
                 time_per_frame_lst.append(time_per_frame)
-            time_per_frame = sum(time_per_frame_lst) / repeat_times
+            time_per_frame = sum(time_per_frame_lst) / repeat_time
             real_batch_size = BATCH_SIZE if data == 'random' else ('all' if model_name not in ['CoADNet', 'GCAGC'] else 5)
             print('Model {} on data {} with batch size {}, running time {:.6f} s, FPS = {:.4f}.'.format(model_name, data, real_batch_size, time_per_frame, 1 / time_per_frame))
+    return sum(time_per_frame_lst) / repeat_time
 
 
 if __name__ == '__main__':

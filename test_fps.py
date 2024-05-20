@@ -9,7 +9,7 @@ from torch.utils import data
 from torchvision import transforms
 
 
-BATCH_SIZE = 5  # For data-random, set to any value. For data-CoCA, set to 5 for CoADNet and GCAGC only.
+BATCH_SIZE = [8, 5][1]  # For data-random, set to any value. For data-CoCA, set to 5 for CoADNet and GCAGC only.
 
 def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2):
     # `batch size == 'all'` (not used) means using all images in one group. 
@@ -20,15 +20,17 @@ def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2)
 
     if data == 'random':
         time_total = 0.
+        repeat_time = 500
+        num_images = repeat_time * batch_size
         with torch.no_grad():
-            for i in range(500):
+            for idx in range(repeat_time):
                 inputs = torch.randn(batch_size, 3, size, size).float().cuda()
                 time_st = time()
                 _ = model(inputs)
-                if i > 0:
+                if idx > 0:
                     time_latest = time() - time_st
                     time_total += time_latest
-        time_per_frame = time_total / i / batch_size
+        time_per_frame = time_total / num_images
     elif data == 'CoCA':
         # Currently, not support CoADNet and GCAGC, which have fixed group number in their network.
         image_dir = os.path.join('data', data, 'image')

@@ -5,6 +5,7 @@ from CoSOD_CoADNet.code.modules import *
 from CoSOD_CoADNet.code.backbone import Backbone_Wrapper_VGG16, Backbone_Wrapper_ResNet50, Backbone_Wrapper_Dilated_ResNet50
 
 from test_fps import BATCH_SIZE
+the_batch_size = [BATCH_SIZE, 5][0]
 
 
 class CoADNet_Dilated_ResNet50(nn.Module):
@@ -13,7 +14,7 @@ class CoADNet_Dilated_ResNet50(nn.Module):
         assert mode in ['train', 'test']
         self.mode = mode
         self.compute_loss = compute_loss
-        self.M = BATCH_SIZE
+        self.M = the_batch_size
         self.D = 1024
         self.S = 8
         assert np.mod(self.D, self.S) == 0
@@ -119,7 +120,7 @@ class CoADNet_VGG16(nn.Module):
         assert mode in ['train', 'test']
         self.mode = mode
         self.compute_loss = compute_loss
-        self.M = BATCH_SIZE
+        self.M = the_batch_size
         self.D = 512
         self.S = 4
         assert np.mod(self.D, self.S) == 0
@@ -224,7 +225,7 @@ class CoADNet_ResNet50(nn.Module):
         assert mode in ['train', 'test']
         self.mode = mode
         self.compute_loss = compute_loss
-        self.M = BATCH_SIZE
+        self.M = the_batch_size
         self.D = 1024
         self.S = 8
         assert np.mod(self.D, self.S) == 0

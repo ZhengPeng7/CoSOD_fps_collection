@@ -11,6 +11,7 @@ from .default import _C as config
 from .cls_hrnet import get_cls_net
 
 from test_fps import BATCH_SIZE
+the_batch_size = [BATCH_SIZE, 5][0]
 
 
 model5 = get_cls_net(config)
@@ -26,7 +27,7 @@ class Model(nn.Module):
         self.gc3_2 = GraphConvolution(96,  96)
         self.gc2_1 = GraphConvolution(96,  48)
         self.gc2_2 = GraphConvolution(48,  48)
-        self.group_size=BATCH_SIZE
+        self.group_size=the_batch_size
         # decoder
         de_in_channels=int(48+96+192)
         de_layers = make_decoder_layers(decoder_archs['d16'], de_in_channels, batch_norm=True)
@@ -97,7 +98,7 @@ def norm(x,dim):
     normed=x/torch.sqrt(squared_norm)
     return normed
 def spatial_optimize(fmap, group_size):
-    N, H, W = BATCH_SIZE, 8, 8
+    N, H, W = the_batch_size, 8, 8
     fmap_split = torch.split(fmap, group_size, dim=0)
     for i in range(len(fmap_split)):
         cur_fmap = fmap_split[i]
@@ -150,7 +151,7 @@ def row_normalize(mx):
     mx = torch.mm(r_mat_inv, mx)
     return mx
 def unsqz_fea(dim4_data):
-    split_data = torch.split(dim4_data, BATCH_SIZE, dim=0)
+    split_data = torch.split(dim4_data, the_batch_size, dim=0)
     for i in range(len(split_data)):
         if i == 0:
             dim5_data = split_data[i].unsqueeze(dim=0)

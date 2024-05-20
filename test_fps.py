@@ -9,7 +9,7 @@ from torch.utils import data
 from torchvision import transforms
 
 
-BATCH_SIZE = [8, 5][1]  # For data-random, set to any value. For data-CoCA, set to 5 for CoADNet and GCAGC only.
+BATCH_SIZE = [8, 5][0]  # For data-random, set to any value. For data-CoCA, set to 5 for CoADNet and GCAGC only.
 
 def test_fps(model, model_name, size=256, data=['random', 'CoCA'], batch_size=2):
     # `batch size == 'all'` (not used) means using all images in one group. 

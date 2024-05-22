@@ -33,7 +33,7 @@ def main():
                 time_per_frame_lst.append(time_per_frame)
             time_per_frame = sum(time_per_frame_lst) / repeat_time
             print('Model {} on data {} with batch size {}, running time {:.6f} s, FPS = {:.4f}.'.format(model_name, data, real_batch_size, time_per_frame, 1 / time_per_frame))
-    return sum(time_per_frame_lst) / repeat_time
+    return 1
 
 
 if __name__ == '__main__':

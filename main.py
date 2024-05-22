@@ -23,7 +23,7 @@ def main():
     for data in args.data.split(','):
         for model_name in args.models.split(','):
             real_batch_size = BATCH_SIZE if data == 'random' else 'all'     # Only work when data == 'random'.
-            if data == 'CoCA' and model_name not in ['CoADNet', 'GCAGC']:
+            if data == 'CoCA' and model_name in ['CoADNet', 'GCAGC']:
                 print('Model {} on data {} cannot deal with data with batch size {}. Please Change the BATCH_SIZE in `test_fps.py` to 5 to have a test on them for CoCA.'.format(model_name, data, real_batch_size))
                 continue
             model = eval(model_name+'()')
